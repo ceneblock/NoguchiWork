@@ -1,0 +1,9 @@
+[submodule "models"]
+	path = models
+	url = https://github.com/tensorflow/models.git
+[submodule "labelImg"]
+	path = labelImg
+	url = https://github.com/tzutalin/labelImg.git
+[submodule "TannerGilbert/Tensorflow-Object-Detection-API-Train-Model"]
+	path = TannerGilbert/Tensorflow-Object-Detection-API-Train-Model
+	url = https://github.com/TannerGilbert/Tensorflow-Object-Detection-API-Train-Model.git
