@@ -14,10 +14,11 @@ item {
     id: 4
     name: 'Yellow'
 }
-iitem {
+item {
     id: 5
     name: 'Green'
-}tem {
+}
+item {
     id: 6
     name: 'Blue'
 }

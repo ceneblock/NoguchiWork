@@ -7,3 +7,6 @@
 [submodule "TannerGilbert/Tensorflow-Object-Detection-API-Train-Model"]
 	path = TannerGilbert/Tensorflow-Object-Detection-API-Train-Model
 	url = https://github.com/TannerGilbert/Tensorflow-Object-Detection-API-Train-Model.git
+[submodule "protobuf"]
+	path = protobuf
+	url = https://github.com/protocolbuffers/protobuf.git
