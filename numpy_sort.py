@@ -1,4 +1,5 @@
 import numpy as np
+import concurrent.futures
 import threading
 import csv
 
@@ -70,6 +71,7 @@ def IoU(coordinates1, coordinates2):
             result = 1
         if(coordinates1[4] < coordinates2[4]):
             result = -1
+   
     """
     with lock:
         print("Returning: " + str(result))
@@ -131,13 +133,15 @@ print(my_data['File'].size)
 unique_files = np.unique(my_data['File'])
 print(unique_files.size)
 
-#my_data[:] = my_data[:, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0]] 
-#for element in my_data:
-#    print(type(element))
-#    for name in element:
-#        print("Type: %s Name: %s " % (type(name),  name))
-#    print("\n-------------\n")
-#
+"""
+my_data[:] = my_data[:, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0]] 
+for element in my_data:
+    print(type(element))
+    for name in element:
+        print("Type: %s Name: %s " % (type(name),  name))
+    print("\n-------------\n")
+"""
+
 last_row = my_data[0]
 counter = 0
 different_files = list()
@@ -158,8 +162,8 @@ print("Output Vector")
 print(output_vector)
 in_array = np.array([[0,0, 5,5, .50, 1],
     [1,1,6,6,.80,2],[3,3,8,8,.8,3],[4,4,9,9,.50,5]])
-#lock = threading.Lock()
 """
+#lock = threading.Lock()
 out_array = np.copy(my_data).tolist()
 """
 print("In Array: " )
@@ -175,6 +179,19 @@ print("\n")
 t = []
 indicies = []
 x = 0
+with concurrent.futures.ThreadPoolExecutor(max_workers=None) as executor:
+    while x < len(different_files) - 1:
+        """
+        print("Length: " + str(len(my_data)))
+        print("different_files " + str(len(different_files)))
+        print("X: " + str(x))
+        """
+        executor.submit(reduce, 
+            my_data[x:different_files[x+1]], indicies, x)
+        x = x + 1
+    
+
+"""
 while x < len(different_files):
     t.append(threading.Thread(target=reduce, 
         args=(my_data[x:different_files[x+1]], indicies, x)))
@@ -186,11 +203,14 @@ while x < len(different_files):
     t[x].join()
     x = x + 1
 """
+
+"""
 print("In Array: " )
 print(in_array)
 
 print("\n")
 """
+print(indicies)
 indicies.sort(reverse = True)
 for x in indicies:
     del out_array[x]
