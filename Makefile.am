@@ -1,4 +1,5 @@
 AUTOMAKE_OPTIONS = foreign
 
-SUBDIRS = libjson libevents
-ACLOCAL_AMFLAGS=-I$(top_src_dir)/m4
+#SUBDIRS = libs src tests
+SUBDIRS = libs src
+ACLOCAL_AMFLAGS=-I m4
