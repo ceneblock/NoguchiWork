@@ -51,15 +51,10 @@ struct HSV_values
 
 map<string, HSV_values> colors;
 
-/*
 vector<vector<int>> newPoints;
 
-//Yellow, Green, Orange, Pink
-vector<vector<int>> myColors {
-  {58, 215, 183, 179, 255, 255},
-};
 
-Point getContours(Mat imgDil, Mat img)
+Point getContours(Mat imgDil, Mat img, string label)
 {
     
   vector<vector<Point>> contours;
@@ -96,7 +91,7 @@ Point getContours(Mat imgDil, Mat img)
       myPoint.x = boundRect[x].x + (boundRect[x].width / 2);
       myPoint.y = boundRect[x].y;
 
-      putText(img, "Red" , {boundRect[x].x, boundRect[x].y - 5}, FONT_HERSHEY_PLAIN, 1, Scalar(255, 255, 255), 1);
+      putText(img, label , {boundRect[x].x, boundRect[x].y - 5}, FONT_HERSHEY_PLAIN, 1, Scalar(255, 255, 255), 1);
       cout << "Putting a bounding box: " << to_string(boundRect[x].x) << " and " << to_string(boundRect[x].y) << endl;
     }
     ++x;
@@ -104,30 +99,48 @@ Point getContours(Mat imgDil, Mat img)
   return myPoint;
 }
 
-void findColor(Mat img)
+void findColor(Mat img, map<string, HSV_values> colors)
 {
   Mat imgHSV;
   cvtColor(img, imgHSV, COLOR_BGR2HSV);
   
   int x = 0;
-  for( auto myColor : myColors )
+  for( auto myColor : colors )
   {
-    Scalar lower(myColor.at(0), myColor.at(1), myColor.at(2)), 
-           upper(myColor.at(3), myColor.at(4), myColor.at(5));
+    Scalar lower(myColor.second.H_min, myColor.second.S_min, myColor.second.V_min), 
+           upper(myColor.second.H_max, myColor.second.S_max, myColor.second.V_max);
     Mat mask;
     inRange(imgHSV, lower, upper, mask);
+    
+    Point myPoint = getContours(mask, img, myColor.first);
 
-    imshow(to_string(x), mask);
-    Point myPoint = getContours(mask, img);
-
+    /*
     if(myPoint.x != 0 && myPoint.y != 0)
     {
       newPoints.push_back({myPoint.x, myPoint.y, x});
     }
+    */
     ++x;
   }
 }
-*/
+
+void processImage(string fileName, string inputDirectory, string outputDirectory, map<string, HSV_values> colors)
+{
+  Mat img = imread(inputDirectory + "/" + fileName);
+
+  Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
+
+  //Preprocessing image
+  cvtColor(img, imgGray, COLOR_BGR2GRAY);
+  GaussianBlur(imgGray, imgBlur, Size(3,3), 3, 0);
+  Canny(imgBlur, imgCanny, 25, 75);
+
+  Mat kernel = getStructuringElement(MORPH_RECT, Size(3,3));
+  dilate(imgCanny, imgDil, kernel);
+  findColor(img, colors);
+  
+  imwrite(outputDirectory + "/" + fileName, img);
+}
 
 void showHelp()
 {
@@ -373,11 +386,11 @@ int main(int argc, char *argv[])
     }
     else
     {
-		  cout << ent->d_name << endl;
+		  processImage(string(ent->d_name), imagesDirectory, outputDirectory, colors);
     }
 	}
 
-	closedir(inputdir);  
+	closedir(inputdir);
 
 
 

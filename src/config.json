@@ -6,10 +6,10 @@
       "name": "red",
       "values":
       {
-        "H_min":  58,
-        "S_min": 215,
-        "V_min": 183,
-        "H_max": 179,
+        "H_min":  0,
+        "S_min": 240,
+        "V_min": 57,
+        "H_max": 0,
         "S_max": 255,
         "V_max": 255
       }
