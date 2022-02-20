@@ -4,16 +4,15 @@
   "labels": [
     {
       "name": "red",
-      "values": [
-        {
-          "H_min":  58,
-          "S_min": 215,
-          "V_min": 183,
-          "H_max": 179,
-          "S_max": 255,
-          "V_max": 255
-        }
-      ]
+      "values":
+      {
+        "H_min":  58,
+        "S_min": 215,
+        "V_min": 183,
+        "H_max": 179,
+        "S_max": 255,
+        "V_max": 255
+      }
     }
   ]
 }

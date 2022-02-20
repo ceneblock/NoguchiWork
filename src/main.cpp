@@ -11,6 +11,9 @@
 #include <vector>
 #include <map>
 
+#include <dirent.h>
+#include <sys/stat.h>
+
 #include <json.h>
 
 #include "config.h"
@@ -26,6 +29,27 @@ static const apr_getopt_option_t opt_option[] = {
   };
 
 
+struct HSV_values
+{
+  uint8_t H_min;
+  uint8_t S_min;
+  uint8_t V_min;
+  uint8_t H_max;
+  uint8_t S_max;
+  uint8_t V_max;
+
+  HSV_values()
+  {
+    H_min = 0;
+    S_min = 0;
+    V_min = 0;
+    H_max = 0;
+    S_max = 0;
+    V_max = 0;
+  };
+};
+
+map<string, HSV_values> colors;
 
 /*
 vector<vector<int>> newPoints;
@@ -225,10 +249,135 @@ int main(int argc, char *argv[])
   } 
 
 
+  rapidjson::Value data;
+  if(json.getValue("labels", data))
+  {
+    cerr << "No \"labels\" found. This means no output will occur\n";
+  }
+
+  //loop through all the labels
+  for (rapidjson::SizeType x = 0; x < data.Size(); ++x)
+  {
+    string label;
+    HSV_values hsv;
+    rapidjson::Value::ConstMemberIterator itr;
+   
+    itr = data[x].FindMember("name");
+    if(itr == data[x].MemberEnd())
+    {
+      cerr << "Cowardly refusing to look at data that doesn't have a \"name\"\n";
+      continue;
+    }
+    else
+    {
+      label = data[x]["name"].GetString();
+    }
+    itr = data[x].FindMember("values");
+    if(itr == data[x].MemberEnd())
+    {
+      cerr << "Cowardly refusing to look at data that doesn't have a \"values\"\n";
+      continue;
+    }
+    else
+    {
+      itr = data[x]["values"].FindMember("H_min");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for H_min, defaulting to 0";
+      }
+      else
+      {
+        hsv.H_min = data[x]["values"]["H_min"].GetInt();
+      }
+      
+      itr = data[x]["values"].FindMember("S_min");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for S_min, defaulting to 0";
+      }
+      else
+      {
+        hsv.S_min = data[x]["values"]["S_min"].GetInt();
+      }
+
+      itr = data[x]["values"].FindMember("V_min");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for V_min, defaulting to 0";
+      }
+      else
+      {
+        hsv.V_min = data[x]["values"]["V_min"].GetInt();
+      }
+
+      itr = data[x]["values"].FindMember("H_max");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for H_max, defaulting to 0";
+      }
+      else
+      {
+        hsv.H_max = data[x]["values"]["H_max"].GetInt();
+      }
+      
+      itr = data[x]["values"].FindMember("S_max");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for S_max, defaulting to 0";
+      }
+      else
+      {
+        hsv.S_max = data[x]["values"]["S_max"].GetInt();
+      }
+
+      itr = data[x]["values"].FindMember("V_max");
+      if(itr == data[x]["values"].MemberEnd())
+      {
+        cerr << "No value found for V_max, defaulting to 0";
+      }
+      else
+      {
+        hsv.V_max = data[x]["values"]["V_max"].GetInt();
+      }
+
+    }
+     std::pair<std::map<string,HSV_values>::iterator,bool> ret;
+     ret = colors.insert ( std::pair<string,HSV_values>(label, hsv));
+     if (ret.second==false) 
+     {
+      std::cerr << "Object with label " << label << " already exists\n";
+     }
+  }
+
   /**
    * End JSON
    */
 
+  /**
+   * Open the input dir
+   */
+
+  struct dirent *ent;
+  struct stat states;
+  DIR *inputdir = opendir(imagesDirectory.c_str());
+  if(inputdir == NULL)
+  {
+    cerr << "Unable to open " << imagesDirectory << endl;
+    return EXIT_FAILURE;
+  }
+	while((ent=readdir(inputdir)) != NULL)
+  {
+    if(string(ent->d_name).compare(".") == 0 || string(ent->d_name).compare("..") == 0)
+    {
+      continue;
+    }
+    else
+    {
+		  cout << ent->d_name << endl;
+    }
+	}
+
+	closedir(inputdir);  
 
 
 
