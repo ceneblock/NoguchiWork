@@ -33,7 +33,9 @@ AX_CXX_COMPILE_STDCXX_17([ext],[mandatory])
 
 # Checks for header files.
 AC_CHECK_HEADERS([unistd.h])
+AC_CHECK_HEADERS([dirent.h])
 AC_CHECK_HEADERS([vector])
+AC_CHECK_HEADERS([map])
 
 #Should be in POSIX fstat(3p)
 AC_CHECK_HEADERS([sys/stat.h])

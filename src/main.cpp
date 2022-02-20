@@ -5,12 +5,11 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <map>
 using namespace std;
 using namespace cv;
-  
-Mat img;
 
+/*
 vector<vector<int>> newPoints;
 
 //Yellow, Green, Orange, Pink
@@ -86,9 +85,12 @@ void findColor(Mat img)
     ++x;
   }
 }
-
+*/
 int main(int argc, char *argv[])
 {
+
+
+  /*
   string path = argv[1];
   //string path = "Resources/shapes.png";
 
@@ -119,7 +121,7 @@ int main(int argc, char *argv[])
 
   //wait forever
   waitKey(0);
-
+  */
 
   return 0;
 }
