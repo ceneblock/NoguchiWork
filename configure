@@ -636,6 +636,10 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+APR_UTIL_LIBS
+APR_UTIL_CFLAGS
+APR_LIBS
+APR_CFLAGS
 OPENCV4_LIBS
 OPENCV4_CFLAGS
 GTEST_LIBS
@@ -801,7 +805,11 @@ PKG_CONFIG_LIBDIR
 GTEST_CFLAGS
 GTEST_LIBS
 OPENCV4_CFLAGS
-OPENCV4_LIBS'
+OPENCV4_LIBS
+APR_CFLAGS
+APR_LIBS
+APR_UTIL_CFLAGS
+APR_UTIL_LIBS'
 
 
 # Initialize some variables set by options.
@@ -1470,6 +1478,12 @@ Some influential environment variables:
               C compiler flags for OPENCV4, overriding pkg-config
   OPENCV4_LIBS
               linker flags for OPENCV4, overriding pkg-config
+  APR_CFLAGS  C compiler flags for APR, overriding pkg-config
+  APR_LIBS    linker flags for APR, overriding pkg-config
+  APR_UTIL_CFLAGS
+              C compiler flags for APR_UTIL, overriding pkg-config
+  APR_UTIL_LIBS
+              linker flags for APR_UTIL, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -16694,12 +16708,36 @@ fi
 
 done
 
+for ac_header in dirent.h
+do :
+  ac_fn_cxx_check_header_mongrel "$LINENO" "dirent.h" "ac_cv_header_dirent_h" "$ac_includes_default"
+if test "x$ac_cv_header_dirent_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_DIRENT_H 1
+_ACEOF
+
+fi
+
+done
+
 for ac_header in vector
 do :
   ac_fn_cxx_check_header_mongrel "$LINENO" "vector" "ac_cv_header_vector" "$ac_includes_default"
 if test "x$ac_cv_header_vector" = xyes; then :
   cat >>confdefs.h <<_ACEOF
 #define HAVE_VECTOR 1
+_ACEOF
+
+fi
+
+done
+
+for ac_header in map
+do :
+  ac_fn_cxx_check_header_mongrel "$LINENO" "map" "ac_cv_header_map" "$ac_includes_default"
+if test "x$ac_cv_header_map" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_MAP 1
 _ACEOF
 
 fi
@@ -17077,6 +17115,189 @@ See \`config.log' for more details" "$LINENO" 5; }
 else
 	OPENCV4_CFLAGS=$pkg_cv_OPENCV4_CFLAGS
 	OPENCV4_LIBS=$pkg_cv_OPENCV4_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+fi
+
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for APR" >&5
+$as_echo_n "checking for APR... " >&6; }
+
+if test -n "$APR_CFLAGS"; then
+    pkg_cv_APR_CFLAGS="$APR_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"apr-1\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "apr-1") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_APR_CFLAGS=`$PKG_CONFIG --cflags "apr-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$APR_LIBS"; then
+    pkg_cv_APR_LIBS="$APR_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"apr-1\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "apr-1") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_APR_LIBS=`$PKG_CONFIG --libs "apr-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        APR_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "apr-1" 2>&1`
+        else
+	        APR_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "apr-1" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$APR_PKG_ERRORS" >&5
+
+	as_fn_error $? "Package requirements (apr-1) were not met:
+
+$APR_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables APR_CFLAGS
+and APR_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details." "$LINENO" 5
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables APR_CFLAGS
+and APR_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details" "$LINENO" 5; }
+else
+	APR_CFLAGS=$pkg_cv_APR_CFLAGS
+	APR_LIBS=$pkg_cv_APR_LIBS
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+
+fi
+
+pkg_failed=no
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for APR_UTIL" >&5
+$as_echo_n "checking for APR_UTIL... " >&6; }
+
+if test -n "$APR_UTIL_CFLAGS"; then
+    pkg_cv_APR_UTIL_CFLAGS="$APR_UTIL_CFLAGS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"apr-util-1\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "apr-util-1") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_APR_UTIL_CFLAGS=`$PKG_CONFIG --cflags "apr-util-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+if test -n "$APR_UTIL_LIBS"; then
+    pkg_cv_APR_UTIL_LIBS="$APR_UTIL_LIBS"
+ elif test -n "$PKG_CONFIG"; then
+    if test -n "$PKG_CONFIG" && \
+    { { $as_echo "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"apr-util-1\""; } >&5
+  ($PKG_CONFIG --exists --print-errors "apr-util-1") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; }; then
+  pkg_cv_APR_UTIL_LIBS=`$PKG_CONFIG --libs "apr-util-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes
+else
+  pkg_failed=yes
+fi
+ else
+    pkg_failed=untried
+fi
+
+
+
+if test $pkg_failed = yes; then
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+
+if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
+        _pkg_short_errors_supported=yes
+else
+        _pkg_short_errors_supported=no
+fi
+        if test $_pkg_short_errors_supported = yes; then
+	        APR_UTIL_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "apr-util-1" 2>&1`
+        else
+	        APR_UTIL_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "apr-util-1" 2>&1`
+        fi
+	# Put the nasty error message in config.log where it belongs
+	echo "$APR_UTIL_PKG_ERRORS" >&5
+
+	as_fn_error $? "Package requirements (apr-util-1) were not met:
+
+$APR_UTIL_PKG_ERRORS
+
+Consider adjusting the PKG_CONFIG_PATH environment variable if you
+installed software in a non-standard prefix.
+
+Alternatively, you may set the environment variables APR_UTIL_CFLAGS
+and APR_UTIL_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details." "$LINENO" 5
+elif test $pkg_failed = untried; then
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+	{ { $as_echo "$as_me:${as_lineno-$LINENO}: error: in \`$ac_pwd':" >&5
+$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
+as_fn_error $? "The pkg-config script could not be found or is too old.  Make sure it
+is in your PATH or set the PKG_CONFIG environment variable to the full
+path to pkg-config.
+
+Alternatively, you may set the environment variables APR_UTIL_CFLAGS
+and APR_UTIL_LIBS to avoid the need to call pkg-config.
+See the pkg-config man page for more details.
+
+To get pkg-config, see <http://pkg-config.freedesktop.org/>.
+See \`config.log' for more details" "$LINENO" 5; }
+else
+	APR_UTIL_CFLAGS=$pkg_cv_APR_UTIL_CFLAGS
+	APR_UTIL_LIBS=$pkg_cv_APR_UTIL_LIBS
         { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
 $as_echo "yes" >&6; }
 
@@ -19645,7 +19866,7 @@ ${PACKAGE_NAME} Version ${PACKAGE_VERSION}
 
 Prefix: '${prefix}'.
 Compiler: '${CXX} ${CXXFLAGS} ${CPPFLAGS}'
-Libraries: '${LIBS} ${GTEST_LIBS} ${OPENCV4_LIBS}'
+Libraries: '${LIBS} ${GTEST_LIBS} ${OPENCV4_LIBS} ${APR_LIBS} ${APR_UTIL_LIBS}'
 
 Package features:
 

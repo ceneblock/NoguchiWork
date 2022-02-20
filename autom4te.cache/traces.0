@@ -2989,44 +2989,62 @@ m4trace:configure.ac:32: -1- AX_CXX_COMPILE_STDCXX([17], [ext], [mandatory])
 m4trace:configure.ac:32: -1- m4_pattern_allow([^HAVE_CXX17$])
 m4trace:configure.ac:32: -1- m4_pattern_allow([^HAVE_CXX17$])
 m4trace:configure.ac:35: -1- m4_pattern_allow([^HAVE_UNISTD_H$])
-m4trace:configure.ac:36: -1- m4_pattern_allow([^HAVE_VECTOR$])
-m4trace:configure.ac:39: -1- m4_pattern_allow([^HAVE_SYS_STAT_H$])
-m4trace:configure.ac:41: -1- m4_pattern_allow([^HAVE_RAPIDJSON_DOCUMENT_H$])
-m4trace:configure.ac:55: -1- m4_pattern_allow([^HAVE_OPENCV2_IMGPROC_HPP$])
-m4trace:configure.ac:73: -1- PKG_CHECK_MODULES([GTEST], [gtest_main])
-m4trace:configure.ac:73: -1- PKG_PROG_PKG_CONFIG
-m4trace:configure.ac:73: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^PKG_CONFIG$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^GTEST_CFLAGS$])
-m4trace:configure.ac:73: -1- m4_pattern_allow([^GTEST_LIBS$])
-m4trace:configure.ac:73: -1- PKG_CHECK_EXISTS([gtest_main], [pkg_cv_[]GTEST_CFLAGS=`$PKG_CONFIG --[]cflags "gtest_main" 2>/dev/null`
+m4trace:configure.ac:36: -1- m4_pattern_allow([^HAVE_DIRENT_H$])
+m4trace:configure.ac:37: -1- m4_pattern_allow([^HAVE_VECTOR$])
+m4trace:configure.ac:38: -1- m4_pattern_allow([^HAVE_MAP$])
+m4trace:configure.ac:41: -1- m4_pattern_allow([^HAVE_SYS_STAT_H$])
+m4trace:configure.ac:43: -1- m4_pattern_allow([^HAVE_RAPIDJSON_DOCUMENT_H$])
+m4trace:configure.ac:57: -1- m4_pattern_allow([^HAVE_OPENCV2_IMGPROC_HPP$])
+m4trace:configure.ac:75: -1- PKG_CHECK_MODULES([GTEST], [gtest_main])
+m4trace:configure.ac:75: -1- PKG_PROG_PKG_CONFIG
+m4trace:configure.ac:75: -1- m4_pattern_forbid([^_?PKG_[A-Z_]+$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG(_(PATH|LIBDIR|SYSROOT_DIR|ALLOW_SYSTEM_(CFLAGS|LIBS)))?$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG_(DISABLE_UNINSTALLED|TOP_BUILD_DIR|DEBUG_SPEW)$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG_PATH$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG_LIBDIR$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^PKG_CONFIG$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^GTEST_CFLAGS$])
+m4trace:configure.ac:75: -1- m4_pattern_allow([^GTEST_LIBS$])
+m4trace:configure.ac:75: -1- PKG_CHECK_EXISTS([gtest_main], [pkg_cv_[]GTEST_CFLAGS=`$PKG_CONFIG --[]cflags "gtest_main" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:73: -1- PKG_CHECK_EXISTS([gtest_main], [pkg_cv_[]GTEST_LIBS=`$PKG_CONFIG --[]libs "gtest_main" 2>/dev/null`
+m4trace:configure.ac:75: -1- PKG_CHECK_EXISTS([gtest_main], [pkg_cv_[]GTEST_LIBS=`$PKG_CONFIG --[]libs "gtest_main" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:73: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:74: -1- PKG_CHECK_MODULES([OPENCV4], [opencv4])
-m4trace:configure.ac:74: -1- m4_pattern_allow([^OPENCV4_CFLAGS$])
-m4trace:configure.ac:74: -1- m4_pattern_allow([^OPENCV4_LIBS$])
-m4trace:configure.ac:74: -1- PKG_CHECK_EXISTS([opencv4], [pkg_cv_[]OPENCV4_CFLAGS=`$PKG_CONFIG --[]cflags "opencv4" 2>/dev/null`
+m4trace:configure.ac:75: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:76: -1- PKG_CHECK_MODULES([OPENCV4], [opencv4])
+m4trace:configure.ac:76: -1- m4_pattern_allow([^OPENCV4_CFLAGS$])
+m4trace:configure.ac:76: -1- m4_pattern_allow([^OPENCV4_LIBS$])
+m4trace:configure.ac:76: -1- PKG_CHECK_EXISTS([opencv4], [pkg_cv_[]OPENCV4_CFLAGS=`$PKG_CONFIG --[]cflags "opencv4" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:74: -1- PKG_CHECK_EXISTS([opencv4], [pkg_cv_[]OPENCV4_LIBS=`$PKG_CONFIG --[]libs "opencv4" 2>/dev/null`
+m4trace:configure.ac:76: -1- PKG_CHECK_EXISTS([opencv4], [pkg_cv_[]OPENCV4_LIBS=`$PKG_CONFIG --[]libs "opencv4" 2>/dev/null`
 		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
-m4trace:configure.ac:74: -1- _PKG_SHORT_ERRORS_SUPPORTED
-m4trace:configure.ac:76: -1- m4_pattern_allow([^LIB@&t@OBJS$])
-m4trace:configure.ac:76: -1- m4_pattern_allow([^LTLIBOBJS$])
-m4trace:configure.ac:76: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
-m4trace:configure.ac:76: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
-m4trace:configure.ac:76: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
-m4trace:configure.ac:76: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
-m4trace:configure.ac:76: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
-m4trace:configure.ac:76: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
-m4trace:configure.ac:76: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
-m4trace:configure.ac:76: -1- AM_RUN_LOG([cd "$am_dirpart" \
+m4trace:configure.ac:76: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:78: -1- PKG_CHECK_MODULES([APR], [apr-1])
+m4trace:configure.ac:78: -1- m4_pattern_allow([^APR_CFLAGS$])
+m4trace:configure.ac:78: -1- m4_pattern_allow([^APR_LIBS$])
+m4trace:configure.ac:78: -1- PKG_CHECK_EXISTS([apr-1], [pkg_cv_[]APR_CFLAGS=`$PKG_CONFIG --[]cflags "apr-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:78: -1- PKG_CHECK_EXISTS([apr-1], [pkg_cv_[]APR_LIBS=`$PKG_CONFIG --[]libs "apr-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:78: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:79: -1- PKG_CHECK_MODULES([APR_UTIL], [apr-util-1])
+m4trace:configure.ac:79: -1- m4_pattern_allow([^APR_UTIL_CFLAGS$])
+m4trace:configure.ac:79: -1- m4_pattern_allow([^APR_UTIL_LIBS$])
+m4trace:configure.ac:79: -1- PKG_CHECK_EXISTS([apr-util-1], [pkg_cv_[]APR_UTIL_CFLAGS=`$PKG_CONFIG --[]cflags "apr-util-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:79: -1- PKG_CHECK_EXISTS([apr-util-1], [pkg_cv_[]APR_UTIL_LIBS=`$PKG_CONFIG --[]libs "apr-util-1" 2>/dev/null`
+		      test "x$?" != "x0" && pkg_failed=yes ], [pkg_failed=yes])
+m4trace:configure.ac:79: -1- _PKG_SHORT_ERRORS_SUPPORTED
+m4trace:configure.ac:81: -1- m4_pattern_allow([^LIB@&t@OBJS$])
+m4trace:configure.ac:81: -1- m4_pattern_allow([^LTLIBOBJS$])
+m4trace:configure.ac:81: -1- AM_CONDITIONAL([am__EXEEXT], [test -n "$EXEEXT"])
+m4trace:configure.ac:81: -1- m4_pattern_allow([^am__EXEEXT_TRUE$])
+m4trace:configure.ac:81: -1- m4_pattern_allow([^am__EXEEXT_FALSE$])
+m4trace:configure.ac:81: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_TRUE])
+m4trace:configure.ac:81: -1- _AM_SUBST_NOTMAKE([am__EXEEXT_FALSE])
+m4trace:configure.ac:81: -1- _AC_AM_CONFIG_HEADER_HOOK(["$ac_file"])
+m4trace:configure.ac:81: -1- _AM_OUTPUT_DEPENDENCY_COMMANDS
+m4trace:configure.ac:81: -1- AM_RUN_LOG([cd "$am_dirpart" \
       && sed -e '/# am--include-marker/d' "$am_filepart" \
         | $MAKE -f - am--depfiles])
-m4trace:configure.ac:76: -1- _LT_PROG_LTMAIN
+m4trace:configure.ac:81: -1- _LT_PROG_LTMAIN

@@ -1,13 +1,31 @@
+#include <apr_general.h>
+#include <apr_getopt.h>
+
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgproc.hpp>
 
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
+
+#include <json.h>
+
+#include "config.h"
+
 using namespace std;
 using namespace cv;
+
+static const apr_getopt_option_t opt_option[] = {
+    /* long-option, short-option, has-arg flag, description */
+    { "config", 'c', TRUE, "input file" },      /* -c name or --config name */
+    { "help", 'h', FALSE, "show help" },    /* -h or --help */
+    { NULL, 0, 0, NULL }, /* end (a.k.a. sentinel) */
+  };
+
+
 
 /*
 vector<vector<int>> newPoints;
@@ -86,8 +104,132 @@ void findColor(Mat img)
   }
 }
 */
+
+void showHelp()
+{
+  cout << endl << endl << endl;
+  cout << PACKAGE_NAME << endl;
+  for(int x = 0; x < strlen(PACKAGE_NAME); ++x)
+  {
+    cout << "-";
+  }
+  cout << endl;
+
+  /**
+   * @TODO: use iomanip
+   */
+  int x = 0;
+  while(opt_option[x].name != NULL)
+  {
+    cout << "--" << opt_option[x].name << " \t| -" << (char)opt_option[x].optch;
+    if(opt_option[x].has_arg)
+    {
+      cout << " OPTION";
+    }
+    cout << " \t| " << opt_option[x].description << endl;
+    ++x;
+  }
+  cout << endl << endl << endl;
+}
 int main(int argc, char *argv[])
 {
+
+  string jsonLocation = "";
+  bool haveJson = false;
+
+  string imagesDirectory = "./";  
+  string outputDirectory = "./";  
+
+  /**
+   * APR crap
+   */
+  apr_initialize();
+  apr_status_t rv;
+  apr_getopt_t *opt;
+  apr_pool_t *pool;
+  int optch;
+  const char *optarg;
+
+  rv = apr_pool_create(&pool, NULL);
+  if(rv != APR_SUCCESS)
+  {
+    cerr << "Error in apr_pool_create\n";
+  }
+
+  rv = apr_getopt_init(&opt, pool, argc, argv);
+  if(rv != APR_SUCCESS)
+  {
+    cerr << "Error in apt_getopt_init\n";
+  }
+  
+
+  /* parse the all options based on opt_option[] */
+  while ((rv = apr_getopt_long(opt, opt_option, &optch, &optarg)) == APR_SUCCESS) 
+  {
+    switch(optch)
+    {
+      case 'c':
+        if(optarg)
+        {
+          haveJson = true;
+          jsonLocation = optarg;
+        }
+        else
+        {
+          cerr << "No input file specified!";
+          showHelp();
+        }
+        break;
+      case 'h':
+        showHelp();
+    }
+
+  }
+  if (rv != APR_EOF) {
+      printf("bad options\n");
+  }
+ 
+  if(!haveJson)
+  {
+    cerr << "Missing JSON file!\n";
+    apr_terminate();
+    return EXIT_FAILURE;
+  }
+
+  apr_terminate();
+
+  /**
+   * End APR crap
+   */
+
+  /**
+   * Begin JSON
+   */
+
+  JSON json(jsonLocation.c_str());
+
+  if(json.parse() == true)
+  {
+    cerr << "Invalid JSON!\n";
+    return EXIT_FAILURE;
+  }
+
+  if(json.getString("images", imagesDirectory))
+  {
+    cerr << "No \"images\" specified, defaulting to current dirrectory\n";
+  } 
+
+  if(json.getString("output", outputDirectory))
+  {
+    cerr << "No \"output\" specified, defaulting to current dirrectory\n";
+  } 
+
+
+  /**
+   * End JSON
+   */
+
+
 
 
   /*
@@ -123,5 +265,5 @@ int main(int argc, char *argv[])
   waitKey(0);
   */
 
-  return 0;
+  return EXIT_SUCCESS;
 }

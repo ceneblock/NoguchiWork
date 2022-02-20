@@ -1,5 +1,6 @@
 {
   "images": "../images/Sophie",
+  "output": "../images/Sophie/output",
   "labels": [
     {
       "name": "red",

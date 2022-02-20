@@ -75,6 +75,9 @@ fi
 PKG_CHECK_MODULES([GTEST], [gtest_main])
 PKG_CHECK_MODULES([OPENCV4], [opencv4])
 
+PKG_CHECK_MODULES([APR], [apr-1])
+PKG_CHECK_MODULES([APR_UTIL], [apr-util-1])
+
 AC_OUTPUT
 
 cat << EOF
@@ -84,7 +87,7 @@ ${PACKAGE_NAME} Version ${PACKAGE_VERSION}
 
 Prefix: '${prefix}'.
 Compiler: '${CXX} ${CXXFLAGS} ${CPPFLAGS}'
-Libraries: '${LIBS} ${GTEST_LIBS} ${OPENCV4_LIBS}'
+Libraries: '${LIBS} ${GTEST_LIBS} ${OPENCV4_LIBS} ${APR_LIBS} ${APR_UTIL_LIBS}'
 
 Package features:
 
